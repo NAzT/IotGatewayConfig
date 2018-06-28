@@ -344,15 +344,10 @@ function GetNooderedToken() {
         scope: "*",
         username: "username",
         password: "password",
-      },
-      headers: {
-        'Content-type': 'application/json',
-        'Node-RED-Deployment-Type': 'full',
-      },
+      }
     }, 
     function optionalCallback(err, httpResponse, body) {
       
-      body = JSON.parse(body);
       noderedToken = body.access_token;
 
     }
