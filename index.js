@@ -1,8 +1,8 @@
 'use strict';
 
 const apiVersion = "/api/v1/";
-const noderedUrl = "http://localhost:1880:1880/flows";
-const noderedUrlAuth =  "http://localhost:1880:1880/auth/token";
+const noderedUrl = "http://localhost:1880/flows";
+const noderedUrlAuth =  "http://localhost:1880/auth/token";
 const FormData = require('form-data');
 const path = require('path');
 const fs = require('fs');
