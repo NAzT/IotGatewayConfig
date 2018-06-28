@@ -1,8 +1,8 @@
 'use strict';
 
 const apiVersion = "/api/v1/";
-const noderedUrl = "http://localhost:1880/flows";
-const noderedUrlAuth =  "http://localhost:1880/auth/token";
+const noderedUrl = "http://localhost:1880:1880/flows";
+const noderedUrlAuth =  "http://localhost:1880:1880/auth/token";
 const FormData = require('form-data');
 const path = require('path');
 const fs = require('fs');
@@ -334,21 +334,35 @@ function GetNooderedToken() {
     return;
   }
 
-  request.post(
-    {
-      url: noderedUrlAuth, 
-      body: 
-      {
+  var dataBody = {
         client_id: "node-red-admin",
         grant_type: "password",
         scope: "*",
         username: noderedConfig.username,
         password: noderedConfig.password,
       }
-    }, 
+
+  request.post(
+      {
+        url: noderedUrlAuth, 
+        form:dataBody
+      }
+    , 
     function optionalCallback(err, httpResponse, body) {
-      
+
+      if (err)
+      {
+        console.log("Error: " + err);
+      }
+
+      body = JSON.parse(body);
+
       noderedToken = body.access_token;
+
+      setTimeout(function () {
+        console.log('get token again');
+        GetNooderedToken();
+      }, body.expires_in)
 
     }
   );
