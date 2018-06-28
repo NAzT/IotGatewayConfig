@@ -342,8 +342,8 @@ function GetNooderedToken() {
         client_id: "node-red-admin",
         grant_type: "password",
         scope: "*",
-        username: "username",
-        password: "password",
+        username: noderedConfig.username,
+        password: noderedConfig.password,
       }
     }, 
     function optionalCallback(err, httpResponse, body) {
