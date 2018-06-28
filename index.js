@@ -2,6 +2,7 @@
 
 const apiVersion = "/api/v1/";
 const noderedUrl = "http://localhost:1880/flows";
+const noderedUrlAuth =  "http://localhost:1880/auth/token";
 const FormData = require('form-data');
 const path = require('path');
 const fs = require('fs');
@@ -13,14 +14,18 @@ const mqttConfigFolder = path.join(basePath, "/mqttConfig");
 const amazonIotConfigFile = path.join(basePath, "/amazonIotConfig/config");
 const amazonIotCertsFolder = path.join(basePath, "/amazonIotConfig/certs");
 const request = require('request');
+const config = require('config');
+var noderedToken = "";
+
+var noderedConfig = config.get('Nodered.adminConfig');
+
+GetNooderedToken();
 
 // Create a server with a host and port
 const server = new Hapi.Server({  
   host: '0.0.0.0',
   port: 8000
 });
-
-
 
 // Add the route
 server.route(
@@ -321,8 +326,49 @@ server.start((err) => {
   console.log('Server running at:', server.info.uri);
 });
 
+var GetNooderedToken = function() {
+
+  if (noderedConfig.username == "" ||
+      noderedConfig.password == "")
+  {
+    return;
+  }
+
+  request.post(
+    {
+      url: noderedUrlAuth, 
+      body: 
+      {
+        client_id: "node-red-admin",
+        grant_type: "password",
+        scope: "*",
+        username: "username",
+        password: "password",
+      },
+      headers: {
+        'Content-type': 'application/json',
+        'Node-RED-Deployment-Type': 'full',
+      },
+    }, 
+    function optionalCallback(err, httpResponse, body) {
+      
+      body = JSON.parse(body);
+      noderedToken = body.access_token;
+
+    }
+  );
+
+}
+
 var UpdateNodeRed = function() {
-  request(noderedUrl, function (error, response, body) {
+  request({
+      url: noderedUrl, 
+      headers: {
+        'Content-type': 'application/json',
+        "Authorization: Bearer " + noderedToken
+      },
+    }, 
+    function (error, response, body) {
     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
     
     body = JSON.parse(body);
@@ -351,6 +397,7 @@ var UpdateNodeRed = function() {
         headers: {
           'Content-type': 'application/json',
           'Node-RED-Deployment-Type': 'full',
+          "Authorization: Bearer " + noderedToken,
         },
       }, 
       function optionalCallback(err, httpResponse, body) {
