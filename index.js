@@ -326,7 +326,7 @@ server.start((err) => {
   console.log('Server running at:', server.info.uri);
 });
 
-var GetNooderedToken = function() {
+function GetNooderedToken() {
 
   if (noderedConfig.username == "" ||
       noderedConfig.password == "")
@@ -365,7 +365,7 @@ var UpdateNodeRed = function() {
       url: noderedUrl, 
       headers: {
         'Content-type': 'application/json',
-        "Authorization: Bearer " + noderedToken
+        'Authorization': 'Bearer ' + noderedToken,
       },
     }, 
     function (error, response, body) {
@@ -397,7 +397,7 @@ var UpdateNodeRed = function() {
         headers: {
           'Content-type': 'application/json',
           'Node-RED-Deployment-Type': 'full',
-          "Authorization: Bearer " + noderedToken,
+          'Authorization': 'Bearer ' + noderedToken,
         },
       }, 
       function optionalCallback(err, httpResponse, body) {
@@ -411,5 +411,4 @@ var UpdateNodeRed = function() {
     );
 
   });
-
 }
