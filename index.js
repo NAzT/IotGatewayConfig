@@ -303,8 +303,8 @@ var writhAmazonCertFile = function(fileName, data)
 var configTemplete = function(config) {
 
   var templete = "\
-connection "+ config.connection +" \n\
-address "+ config.address +" \n\
+connection "+ config.connection +"\n\
+address "+ config.address +"\n\
 \n\
 try_private true #static\n\
 notifications true #static\n\
@@ -432,7 +432,7 @@ var UpdateNodeRed = function() {
 
 function RunUpdateMqttConfig() {
   Promise.coroutine(function *() {
-    yield cmd.run('sudo rsync --delete  -av /home/pi/IotGatewayConfig/mqttConfig/* /etc/mosquitto/bridges.d/');
+    yield cmd.run('sudo rsync --delete  -av /home/pi/IotGatewayConfig/mqttConfig/ /etc/mosquitto/bridges.d/');
     yield cmd.run('sudo service mosquitto restart');
     yield cmd.run('pm2 restart node-red');
     console.log('Executed command with sudo');
