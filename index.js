@@ -22,6 +22,7 @@ var noderedConfig = config.get('Nodered.adminConfig');
 GetNooderedToken();
 
 // Create a server with a host and port
+console.log("Starting server");
 const server = new Hapi.Server({  
   host: '0.0.0.0',
   port: 8000
