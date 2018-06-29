@@ -316,7 +316,7 @@ restart_timeout 30 #static\n\
 #credentials \n\
 remote_username "+ config.remote_username +"\n\
 remote_password "+ config.remote_password +"\n\
-#remote_clientid "+ config.remote_clientid +"\n\
+remote_clientid "+ config.remote_clientid +"\n\
 \n\
 #Topics to bridge\n\
 topic "+ config.topic +"\n\
