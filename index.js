@@ -1,5 +1,7 @@
 'use strict';
 
+process.env["NODE_CONFIG_DIR"] = __dirname + "/config/";
+
 const apiVersion = "/api/v1/";
 const noderedUrl = "http://localhost:1880/flows";
 const noderedUrlAuth =  "http://localhost:1880/auth/token";
