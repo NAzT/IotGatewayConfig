@@ -432,7 +432,8 @@ var UpdateNodeRed = function() {
 
 function RunUpdateMqttConfig() {
   Promise.coroutine(function *() {
-    yield cmd.run('sudo rsync --delete  -av /home/pi/IotGatewayConfig/mqttConfig/* /etc/mosquitto/bridges.d/; ');
+    yield cmd.run('sudo rsync --delete  -av /home/pi/IotGatewayConfig/mqttConfig/* /etc/mosquitto/bridges.d/');
+    yield cmd.run('sudo service mosquitto restart');
     yield cmd.run('sudo service mosquitto restart');
     console.log('Executed command with sudo');
   })();
