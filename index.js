@@ -306,8 +306,8 @@ var configTemplete = function(config) {
 connection "+ config.connection +"\n\
 address "+ config.address +"\n\
 \n\
-try_private true #static\n\
-notifications true #static\n\
+try_private false #static\n\
+notifications false #static\n\
 bridge_attempt_unsubscribe false #static\n\
 cleansession true #static\n\
 keepalive_interval 5 #static\n\
