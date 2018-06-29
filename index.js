@@ -2,6 +2,8 @@
 
 process.env["NODE_CONFIG_DIR"] = __dirname + "/config/";
 
+const cmd = require('node-command-line');
+Promise = require('bluebird');
 const apiVersion = "/api/v1/";
 const noderedUrl = "http://localhost:1880/flows";
 const noderedUrlAuth =  "http://localhost:1880/auth/token";
@@ -45,6 +47,7 @@ server.route(
       if (fs.statSync(mqttFolder + "/" + request.params.f_name))
         {
           deleteMqttFile(request.params.f_name);
+          RunUpdateMqttConfig();
           return "Done";
         }
         else
@@ -97,6 +100,7 @@ server.route(
           }
         }
 
+        RunUpdateMqttConfig();
         return payload;
 
       }
@@ -121,6 +125,7 @@ server.route(
 
         writhMqttFile(payload.config["f_name"], payload.config);
 
+        RunUpdateMqttConfig();
         return payload;
       }
       else {
@@ -423,4 +428,14 @@ var UpdateNodeRed = function() {
     );
 
   });
+}
+
+function RunUpdateMqttConfig() {
+  Promise.coroutine(function *() {
+    yield cmd.run('sudo rsync --delete  -av /home/pi/IotGatewayConfig/mqttConfig/* /etc/mosquitto/bridges.d/; ');
+    yield cmd.run('sudo service mosquitto restart');
+    yield cmd.run("const c = require('child_process')");
+    yield cmd.run("c.execSync(/usr/bin/mosquitto_pub -t '${topic}' -m '${payloadString}')");
+    console.log('Executed command with sudo');
+  })();
 }

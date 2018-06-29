@@ -8,10 +8,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^3.5.1",
     "config": "^1.30.0",
     "form-data": "^2.3.2",
     "fs": "0.0.1-security",
     "hapi": "^17.5.1",
+    "node-command-line": "^1.0.2",
     "path": "^0.12.7",
     "request": "^2.87.0",
     "start": "^5.1.0"
