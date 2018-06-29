@@ -298,24 +298,24 @@ var writhAmazonCertFile = function(fileName, data)
 var configTemplete = function(config) {
 
   var templete = "\
-    connection "+ config.connection +" \n\
-    address "+ config.address +" \n\
-    \n\
-    try_private true #static \n\
-    notifications true #static \n\
-    bridge_attempt_unsubscribe false #static \n\
-    cleansession true #static \n\
-    keepalive_interval 5 #static \n\
-    restart_timeout 30 #static \n\
-    \n\
-    #credentials \n\
-    remote_username "+ config.remote_username +" \n\
-    remote_password "+ config.remote_password +" \n\
-    #remote_clientid "+ config.remote_clientid +" \n\
-    \n\
-    #Topics to bridge \n\
-    topic "+ config.topic +" \n\
-  ";
+connection "+ config.connection +" \n\
+address "+ config.address +" \n\
+\n\
+try_private true #static\n\
+notifications true #static\n\
+bridge_attempt_unsubscribe false #static\n\
+cleansession true #static\n\
+keepalive_interval 5 #static\n\
+restart_timeout 30 #static\n\
+\n\
+#credentials \n\
+remote_username "+ config.remote_username +"\n\
+remote_password "+ config.remote_password +"\n\
+#remote_clientid "+ config.remote_clientid +"\n\
+\n\
+#Topics to bridge\n\
+topic "+ config.topic +"\n\
+";
 
   return templete;
 }
